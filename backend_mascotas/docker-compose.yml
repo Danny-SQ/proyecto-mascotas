@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      # Credenciales de la DB (usan los valores por defecto de tu config.py)
+      POSTGRES_DB: app_mascotas
+      POSTGRES_USER: mascotas
+      POSTGRES_PASSWORD: mascotas123
+      
+      # Nota: el esquema 'app_mascotas' lo maneja SQLAlchemy en la conexión
+    ports:
+      - "5432:5432"
+    volumes:
+      # Persistencia de datos para que los datos no se pierdan al reiniciar el contenedor
+      - db_data:/var/lib/postgresql/data
+    networks: [backend]
+
+  web:
+    build:
+      context: ./backend_mascotas  # <-- Usa la carpeta 'backend' como contexto de construcción
+      dockerfile: Dockerfile # Usa el Dockerfile dentro de esa carpeta
+    restart: always
+    
+    # Estas variables se usan en tu config.py para construir SQLALCHEMY_DATABASE_URI
+    environment:
+      # Conexión a la base de datos (POSTGRES_HOST debe ser 'db', el nombre del servicio)
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: app_mascotas
+      DB_USER: mascotas
+      DB_PASSWORD: mascotas123
+      DB_SCHEMA: app_mascotas
+      
+      # Variables de Flask
+      SECRET_KEY: "super-secret-desarrollo" # Usar una clave simple para desarrollo
+      FLASK_APP: app.py # Necesario para comandos 'flask'
+
+    depends_on:
+      # Espera a que la DB esté lista. Nota: No garantiza que la DB esté completamente inicializada.
+      - db
+      
+    ports:
+      - "5000:5000"
+    networks: [backend]
+
+volumes:
+  db_data:
+
+networks:
+  backend:

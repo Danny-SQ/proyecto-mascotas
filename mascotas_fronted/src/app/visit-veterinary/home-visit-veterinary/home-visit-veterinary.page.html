@@ -1,0 +1,42 @@
+<ion-content class="ion-padding">
+  <div class="content-wrapper">
+    <div class="header-container">
+      <h1 class="app-title">Visitas Veterinarias</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+
+    <h2 class="access-title">Registro de visitas</h2>
+
+    <ion-list lines="none" class="pet-list" *ngIf="visitas.length > 0">
+      <ion-item *ngFor="let item of visitas" class="pet-item">
+        <ion-label>
+          <h3 class="pet-name">{{ item.fecha.substring(0, 10) }}</h3>
+          <p class="pet-details">{{ item.motivo | slice:0:50 }}...</p>
+        </ion-label>
+        <ion-button fill="clear" color="primary" slot="end" (click)="verDetalles(item)">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="tertiary" slot="end" (click)="irAEditar(item)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" slot="end" (click)="eliminar(item.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-text *ngIf="visitas.length === 0" class="no-pets-message">
+      <h3>No hay visitas registradas.</h3>
+    </ion-text>
+
+    <ion-button expand="block" routerLink="/add-visit-veterinary" class="login-button add-pet-button">
+      <ion-icon name="add-outline"></ion-icon> Registrar Visita
+    </ion-button>
+
+    <div class="bottom-links">
+      <a (click)="irAHomePrincipal()" class="register-link">
+        Volver al Menú Principal
+      </a>
+    </div>
+  </div>
+</ion-content>

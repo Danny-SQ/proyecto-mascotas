@@ -1,0 +1,90 @@
+<ion-content class="ion-padding">
+  
+  <div class="content-wrapper">
+    <!-- Encabezado de la página -->
+    <div class="header-container">
+      <h1 class="app-title">Agregar Actividad</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+
+    <!-- Subtítulo -->
+    <h2 class="access-title">Registrar nueva actividad diaria</h2>
+
+    <!-- Formulario de adición -->
+    <form (submit)="guardarActividad()" class="edit-form">
+      <ion-item class="form-item">
+        <ion-label position="stacked">Fecha</ion-label>
+        <ion-datetime
+          display-format="YYYY-MM-DD"
+          [(ngModel)]="fecha"
+          name="fecha"
+          required
+        ></ion-datetime>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Mascota</ion-label>
+        <ion-select [(ngModel)]="mascota_id" name="mascota_id" interface="popover" required>
+          <ion-select-option *ngFor="let mascota of mascotas" [value]="mascota.id">
+            {{ mascota.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Comidas Programadas</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="comidas_programadas"
+          name="comidas_programadas"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Comidas Cumplidas</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="comidas_cumplidas"
+          name="comidas_cumplidas"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="form-item form-checkbox">
+        <ion-label>Actividad Realizada</ion-label>
+        <ion-checkbox
+          [(ngModel)]="actividad_realizada"
+          name="actividad_realizada"
+        ></ion-checkbox>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Tiempo de Actividad (min)</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="tiempo_actividad"
+          name="tiempo_actividad"
+          class="custom-input"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Observaciones</ion-label>
+        <ion-textarea
+          [(ngModel)]="observaciones"
+          name="observaciones"
+          rows="3"
+        ></ion-textarea>
+      </ion-item>
+
+      <!-- Botones de acción -->
+      <ion-button expand="block" type="submit" class="login-button">
+        Guardar
+      </ion-button>
+      <ion-button expand="block" color="medium" (click)="irAHomeFuncionalidad()" class="cancel-button">
+        Cancelar
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

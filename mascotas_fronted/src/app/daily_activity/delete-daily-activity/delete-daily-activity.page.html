@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Eliminar Actividad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>¿Estás seguro?</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Esta acción eliminará permanentemente la actividad. ¿Deseas continuar?
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" color="danger" (click)="eliminar()">
+    Sí, eliminar
+  </ion-button>
+
+  <ion-button expand="full" fill="clear" (click)="navCtrl.back()">
+    Cancelar
+  </ion-button>
+</ion-content>

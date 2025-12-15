@@ -1,0 +1,96 @@
+name: CI/CD Mascotas (Ionic & Flask Docker)
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  # ===========================
+  # JOB 1: INTEGRACIÓN CONTINUA (CI) - FRONTEND & BACKEND
+  # ===========================
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      # (Mantenemos la configuración de Node.js y Python)
+      
+      # CI - BACKEND
+      - name: Instalar dependencias del backend
+        run: pip install -r requirements.txt
+        working-directory: backend_mascotas
+      - name: Ejecutar tests del backend (Omitido)
+        run: echo "Saltando tests de backend (No configurados)."
+        
+      # CI - FRONTEND
+      - name: Instalar dependencias del frontend
+        run: npm install
+        working-directory: mascotas_fronted
+      - name: Build del frontend
+        run: npm run build -- --configuration=production 
+        working-directory: mascotas_fronted
+      - name: Subir artefacto de build del frontend (www)
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-www-artifact
+          path: mascotas_fronted/www
+          
+  # ===========================
+  # JOB 2: DEPLOY FRONTEND (GitHub Pages)
+  # ===========================
+  deploy_frontend:
+    needs: ci
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write 
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+      - name: Descargar artefacto del frontend
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-www-artifact
+          path: dist 
+      - name: Deploy a GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
+  # ===========================
+  # JOB 3: BUILD & PUSH IMAGEN DOCKER (BACKEND)
+  # El CD es manual
+  # ===========================
+  build_and_push_backend:
+    needs: ci 
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      # 1. Login en Docker Hub
+      - name: Login en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 2. Generar Etiqueta
+      - name: Set Image Tag
+        id: image_tag
+        run: echo "TAG=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+
+      # 3. Construir y Subir Imagen a Docker Hub
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend_mascotas
+          push: true
+          tags: dannysq/backend-flask-ci-cd:${{ steps.image_tag.outputs.TAG }},dannysq/backend-flask-ci-cd:latest
+          
+      # 🚨 NOTA IMPORTANTE: El paso de 'Deploy Backend (Docker Container) via SSH' 
+      # HA SIDO ELIMINADO para evitar fallos al intentar acceder a una máquina local.

@@ -1,0 +1,189 @@
+ion-content {
+  --background: #e8f0f2;
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .header-container {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+    .app-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.2em;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 0;
+    }
+
+    .app-logo {
+      width: 150px;
+      height: auto;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+  }
+
+  .access-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6em;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+
+  .pet-list {
+    width: 100%;
+    max-width: 400px;
+    background: transparent;
+    padding: 0;
+
+    .pet-item {
+      --background: #f5f8fa;
+      --border-radius: 15px;
+      margin-bottom: 15px;
+      height: 110px; /* Aumentamos la altura para acomodar mejor el texto y los íconos */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      ion-label {
+        padding-left: 10px;
+        flex-grow: 1;
+
+        .pet-name {
+          font-family: 'Poppins', sans-serif;
+          font-size: 1.1em;
+          font-weight: 600;
+          color: #1a1a2e;
+          margin: 0;
+        }
+
+        .pet-details {
+          font-family: 'Poppins', sans-serif;
+          font-size: 0.8em;
+          color: #aebfd0;
+          margin: 0;
+        }
+      }
+
+      ion-button {
+        --padding-start: 5px;
+        --padding-end: 5px;
+        font-size: 1.2em;
+        margin: 0 5px;
+        height: 100%;
+      }
+    }
+  }
+
+  .no-pets-message {
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    h3 {
+      font-family: 'Poppins', sans-serif;
+      color: #b0c4de;
+      font-weight: 500;
+    }
+  }
+
+  .login-button {
+    --background: #ff5722;
+    --border-radius: 15px;
+    --box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+    height: 55px;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 400px;
+    font-family: 'Poppins', sans-serif;
+
+    &.add-pet-button {
+      margin-top: auto;
+      margin-bottom: 20px;
+    }
+  }
+
+  .bottom-links {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+
+    .register-link {
+      font-family: 'Poppins', sans-serif;
+      color: #1a1a2e;
+      text-decoration: none;
+      font-size: 0.95em;
+      font-weight: 600;
+    }
+  }
+
+  /* Estilos para las alertas */
+  .pet-details-alert,
+  .delete-alert {
+    --background: #f5f8fa;
+    --border-radius: 15px;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+
+    .alert-head {
+      padding: 24px;
+    }
+
+    .alert-title {
+      font-weight: 700;
+      font-size: 1.5em;
+      color: #1a1a2e;
+      text-align: center;
+    }
+
+    .alert-message {
+      padding: 0 24px 24px;
+      font-size: 1em;
+      color: #333;
+      white-space: pre-line;
+    }
+
+    .alert-button-group {
+      padding: 16px 24px;
+      background: #e8f0f2;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+
+    .alert-button {
+      --border-radius: 10px;
+      font-weight: 600;
+      height: 45px;
+      margin: 0;
+    }
+  }
+
+  .pet-details-alert .alert-button {
+    --background: #ff5722;
+    --color: #fff;
+  }
+
+  .delete-alert .alert-button:first-child {
+    --background: #b0c4de;
+    --color: #1a1a2e;
+    margin-right: 5px;
+  }
+
+  .delete-alert .alert-button:last-child {
+    --background: #dc3545;
+    --color: #fff;
+    margin-left: 5px;
+  }
+}

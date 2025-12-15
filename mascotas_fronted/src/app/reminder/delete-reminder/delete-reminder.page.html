@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Eliminar Recordatorio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center">
+  <p>¿Desea eliminar este recordatorio?</p>
+  <ion-button color="danger" expand="block" (click)="eliminar()">Eliminar</ion-button>
+  <ion-button expand="block" fill="outline" (click)="navCtrl.navigateBack('/home-reminder')">Cancelar</ion-button>
+</ion-content>

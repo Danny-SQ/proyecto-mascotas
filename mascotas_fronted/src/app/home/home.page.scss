@@ -1,0 +1,240 @@
+ion-content {
+  --background: #e8f0f2;
+  --padding-top: 20px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .header-text {
+    .app-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+
+    .greeting {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1em;
+      color: #444;
+      margin: 0;
+    }
+  }
+
+  .header-icons {
+    display: flex;
+    gap: 15px; // Espacio entre los iconos
+    align-items: center;
+
+    .notification-icon,
+    .profile-icon {
+      font-size: 1.8em;
+      color: #1a1a2e;
+      cursor: pointer;
+    }
+  }
+}
+
+.action-card {
+  --background: #a3e4d7; /* Fondo azul claro */
+  border-radius: 15px;
+  margin-bottom: 20px;
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+
+  .card-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-text {
+    flex: 1;
+    ion-card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+  }
+
+  .action-button {
+    --background: #ff5722;
+    --border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  .card-image {
+    width: 100px;
+    height: auto;
+  }
+
+  /* Ajuste de margen para la tarjeta de agregar mascota ahora que es la primera */
+  &.add-pet-card {
+    .card-image {
+      transform: translateY(10px);
+    }
+  }
+}
+
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.category-card {
+  --background: #a3e4d7;
+  border-radius: 15px;
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 10px;
+
+  .category-icon {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  ion-card-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0;
+  }
+
+  ion-card-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8em;
+    color: #444;
+    margin-top: 5px;
+  }
+
+  p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #ff5722;
+    margin: 5px 0 0 0;
+  }
+}
+
+.vet-history-card {
+  --background: #a3e4d7;
+  border-radius: 15px;
+  margin-top: 20px;
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+
+  .card-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-text {
+    flex: 1;
+    ion-card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+  }
+
+  .action-button {
+    --background: #ff5722;
+    --border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  .card-image {
+    width: 100px;
+    height: auto;
+    transform: translateY(-20px);
+  }
+}
+
+.footer-toolbar {
+  --background: #fff;
+  border-top: 1px solid #e0e0e0;
+
+  ion-tab-button {
+    --color: #8c8c8c;
+    --color-selected: #ff5722;
+    --background-focused: #f0f0f0;
+
+    ion-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.8em;
+    }
+  }
+}
+
+/*
+  IMPORTANTE: Para que estos estilos se apliquen al ActionSheet,
+  debes copiar y pegar el siguiente bloque de código en tu archivo
+  global de estilos: `src/global.scss`.
+  El selector es más específico para asegurar que los estilos no sean sobreescritos.
+*/
+.profile-action-sheet {
+  --background: #fff !important;
+  --backdrop-opacity: 0.5;
+
+  .action-sheet-group {
+    background: transparent;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+  }
+
+  .action-sheet-group:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .action-sheet-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #1a1a2e;
+    font-size: 1.2em;
+    padding-bottom: 5px;
+  }
+  
+  .action-sheet-title small {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: #444;
+    font-size: 0.8em;
+  }
+  
+  .action-sheet-button {
+    --background-activated: #f0f0f0;
+    --color: #1a1a2e;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    
+    ion-icon {
+      color: #ff5722;
+    }
+  }
+  
+  .action-sheet-button.action-sheet-destructive {
+    --color: var(--ion-color-danger, #eb445a);
+  }
+}

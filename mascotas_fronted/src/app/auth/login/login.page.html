@@ -1,0 +1,37 @@
+<ion-content class="ion-padding">
+  
+  <div class="content-wrapper">
+    <div class="header-container">
+      <h1 class="app-title">Pet App</h1>
+      <img src="\assets\img\logo.jpg" alt="Logo de Homy Pett" class="app-logo">
+    </div>
+
+    <h2 class="access-title">Acceder</h2>
+
+    <div class="input-container">
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="correo" placeholder="Correo electrónico"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="contrasena" type="password" placeholder="Contraseña"></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-button expand="block" (click)="login()" class="login-button">
+      Iniciar
+    </ion-button>
+    
+    <div class="bottom-links">
+      <a routerLink="/forgot-password" class="forgot-password-link">
+        ¿Olvidó la contraseña?
+      </a>
+      <a routerLink="/register" class="register-link">
+        Registrarse
+      </a>
+    </div>
+  </div>
+
+</ion-content>

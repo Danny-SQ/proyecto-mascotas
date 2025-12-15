@@ -1,0 +1,66 @@
+<!-- <ion-header>
+  <ion-toolbar class="main-header">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" class="back-button"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Desparasitación</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="ion-padding">
+  <div class="content-wrapper">
+    <!-- Encabezado de la página -->
+    <div class="header-container">
+      <h1 class="app-title">Editar Desparasitación</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+
+    <!-- Subtítulo del formulario -->
+    <h2 class="access-title">Modificar desparasitación</h2>
+
+    <!-- Formulario de edición -->
+    <form (ngSubmit)="guardarCambios()" class="add-form">
+      <ion-item class="form-item">
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-select [(ngModel)]="tipo" name="tipo" interface="popover" required>
+          <ion-select-option value="interna">Interna</ion-select-option>
+          <ion-select-option value="externa">Externa</ion-select-option>
+          <ion-select-option value="mixta">Mixta</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Producto Utilizado</ion-label>
+        <ion-input [(ngModel)]="producto_utilizado" name="producto_utilizado"></ion-input>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Fecha de Aplicación</ion-label>
+        <ion-datetime
+          display-format="YYYY-MM-DD"
+          picker-format="YYYY-MM-DD"
+          [(ngModel)]="fecha_aplicacion"
+          name="fecha_aplicacion"
+          required>
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Seleccionar Mascota</ion-label>
+        <ion-select [(ngModel)]="mascota_id" name="mascota_id" interface="popover" required>
+          <ion-select-option *ngFor="let mascota of mascotas" [value]="mascota.id">
+            {{ mascota.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Botones de acción -->
+      <ion-button expand="block" type="submit" class="login-button">
+        Guardar Cambios
+      </ion-button>
+      <ion-button expand="block" color="medium" (click)="irAHomeFuncionalidad()" class="cancel-button">
+        Cancelar
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

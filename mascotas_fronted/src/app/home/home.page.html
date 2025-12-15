@@ -1,0 +1,110 @@
+<ion-content class="ion-padding">
+
+  <div class="header-container">
+    <div class="header-text">
+      <h1 class="app-title">Pet Apps</h1>
+      <p class="greeting">Hola, {{ cuidador.nombre_completo }}</p>
+    </div>
+    <div class="header-icons">
+      <ion-icon name="notifications-outline" class="notification-icon" (click)="irAGestionRecordatorios()"></ion-icon>
+      <ion-icon name="person-circle-outline" class="profile-icon" (click)="presentActionSheet()"></ion-icon>
+    </div>
+  </div>
+
+  <ion-card class="action-card add-pet-card">
+    <ion-card-content>
+      <div class="card-content-wrapper">
+        <div class="card-text">
+          <ion-card-title>Agregar tu mascotas</ion-card-title>
+          <ion-button (click)="irAAgregarMascotas()" class="action-button">Crear</ion-button>
+        </div>
+        <img src="\assets\img\dog.png" alt="Mascota husky" class="card-image husky-image">
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <h2 class="section-title">Categorias</h2>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-card (click)="irAGestionMascotas()" class="category-card">
+          <ion-card-content>
+            <img src="\assets\img\pug.png" alt="Ícono de Gestión de Mascotas" class="category-icon">
+            <ion-card-title>Gestión de Mascotas</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card (click)="irAGestionActividades()" class="category-card">
+          <img src="\assets\img\activities.png" alt="Ícono de Actividades Diarias" class="category-icon">
+          <ion-card-content>
+            <ion-card-title>Actividades Diarias</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card (click)="irAGestionVacunas()" class="category-card">
+          <ion-card-content>
+            <img src="\assets\img\vaccines.png" alt="Ícono de Vacunas" class="category-icon">
+            <ion-card-title>Vacunas</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card (click)="irAGestionRecomendaciones()" class="category-card">
+          <ion-card-content>
+            <img src="\assets\img\recommendations.png" alt="Ícono de Recomendaciones" class="category-icon">
+            <ion-card-title>Recomendaciones</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6" offset="3">
+        <ion-card (click)="irAGestionDesparasitaciones()" class="category-card">
+          <ion-card-content>
+            <img src="\assets\img\deworming.png" alt="Ícono de Desparasitación" class="category-icon">
+            <ion-card-title>Desparasitación</ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <h2 class="section-title">Historial veterinario</h2>
+
+  <ion-card class="vet-history-card">
+    <ion-card-content>
+      <div class="card-content-wrapper">
+        <div class="card-text">
+          <ion-card-title>Histórico por mascota</ion-card-title>
+          <ion-button (click)="irAGestionVisitas()" class="action-button">Ver</ion-button>
+        </div>
+        <img src="\assets\img\clipboard.png" alt="Portapapeles" class="card-image vet-image">
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+<!-- <ion-footer>
+  <ion-toolbar class="footer-toolbar">
+    <ion-tabs>
+      <ion-tab-bar>
+        <ion-tab-button (click)="irAHome()" tab="home">
+          <ion-icon name="home"></ion-icon>
+          <ion-label>Principal</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="history">
+          <ion-icon name="list-outline"></ion-icon>
+          <ion-label>Historial</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="calendar">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <ion-label>Calendario</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer> -->

@@ -1,0 +1,65 @@
+<ion-content class="ion-padding">
+  
+  <div class="content-wrapper">
+    <div class="header-container">
+      <h1 class="app-title">Agregar mascota</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+
+    <h2 class="access-title">Detalles de la mascota</h2>
+
+    <div class="input-container">
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="paw-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="nombre" placeholder="Nombre"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="leaf-outline" slot="start"></ion-icon>
+        <ion-select [(ngModel)]="especie" placeholder="Especie">
+          <ion-select-option value="Perro">Perro</ion-select-option>
+          <ion-select-option value="Gato">Gato</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="male-female-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="raza" placeholder="Raza"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="datetime" presentation="date" [(ngModel)]="fecha_nacimiento"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="transgender-outline" slot="start"></ion-icon>
+        <ion-select [(ngModel)]="sexo" placeholder="Sexo">
+          <ion-select-option value="Macho">Macho</ion-select-option>
+          <ion-select-option value="Hembra">Hembra</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="scale-outline" slot="start"></ion-icon>
+        <ion-input type="number" [(ngModel)]="peso" placeholder="Peso (kg)"></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-button expand="block" (click)="agregarMascota()" class="login-button">
+      Guardar Mascota
+    </ion-button>
+    
+    <div class="bottom-links">
+      <a (click)="irAHomeFuncionalidad()" class="register-link">
+        Cancelar
+      </a>
+    </div>
+  </div>
+
+</ion-content>

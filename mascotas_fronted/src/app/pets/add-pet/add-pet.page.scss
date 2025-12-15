@@ -1,0 +1,103 @@
+ion-content {
+  --background: #e8f0f2; // Fondo consistente
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .header-container {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+  
+    .app-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.2em;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 0;
+    }
+
+    .app-logo {
+      width: 150px;
+      height: auto;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+  }
+
+  .access-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6em;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+
+  .input-container {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .custom-input-item {
+    --background: #f5f8fa;
+    --border-radius: 15px;
+    margin-bottom: 20px;
+    height: 55px; 
+    
+    ion-icon {
+      color: #b0c4de;
+      font-size: 1.4em;
+      margin-right: 15px;
+    }
+  
+    ion-input, ion-select, ion-datetime {
+      font-family: 'Poppins', sans-serif;
+      --color: #1a1a2e;
+      font-size: 1em;
+      --placeholder-color: #aebfd0;
+      --padding-start: 0;
+    }
+
+    // Estilos para el select
+    ion-select {
+        padding-left: 0;
+        &::part(text) {
+            color: #1a1a2e;
+        }
+    }
+  }
+
+  .login-button {
+    --background: #ff5722;
+    --border-radius: 15px;
+    --box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+    height: 55px;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 400px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .bottom-links {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+    
+    .register-link {
+      font-family: 'Poppins', sans-serif;
+      color: #1a1a2e;
+      text-decoration: none;
+      font-size: 0.95em;
+      font-weight: 600;
+    }
+  }
+}

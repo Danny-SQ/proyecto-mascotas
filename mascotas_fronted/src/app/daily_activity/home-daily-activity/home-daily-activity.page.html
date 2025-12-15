@@ -1,0 +1,43 @@
+<ion-content class="ion-padding">
+  
+  <div class="content-wrapper">
+    <div class="header-container">
+      <h1 class="app-title">Actividades Diarias</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+
+    <h2 class="access-title">Actividades registradas</h2>
+
+    <ion-list lines="none" class="pet-list" *ngIf="actividades.length > 0">
+      <ion-item *ngFor="let act of actividades" class="pet-item">
+        <ion-label>
+          <h3 class="pet-name">{{ act.fecha }}</h3>
+          <p class="pet-details">Comidas: {{ act.comidas_cumplidas }}/{{ act.comidas_programadas }}</p>
+        </ion-label>
+        <ion-button fill="clear" color="primary" slot="end" (click)="verDetalles(act)">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="tertiary" slot="end" (click)="irAEditar(act)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" slot="end" (click)="eliminar(act.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-text *ngIf="actividades.length === 0" class="no-pets-message">
+      <h3>No hay actividades registradas.</h3>
+    </ion-text>
+
+    <ion-button expand="block" routerLink="/add-daily-activity" class="login-button add-pet-button">
+      <ion-icon name="add-outline"></ion-icon> Registrar Actividad
+    </ion-button>
+
+    <div class="bottom-links">
+      <a (click)="irAHomePrincipal()" class="register-link">
+        Volver al Menú Principal
+      </a>
+    </div>
+  </div>
+</ion-content>

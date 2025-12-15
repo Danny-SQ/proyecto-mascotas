@@ -1,0 +1,55 @@
+<ion-content class="ion-padding">
+  
+  <div class="content-wrapper">
+    <!-- Encabezado de la página -->
+    <div class="header-container">
+      <h1 class="app-title">Editar Vacuna</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+
+    <!-- Subtítulo -->
+    <h2 class="access-title">Modificar detalles de la vacuna</h2>
+
+    <!-- Formulario de edición -->
+    <form (submit)="guardarCambios()" class="edit-form">
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-input [(ngModel)]="tipo" name="tipo" required></ion-input>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Fecha Aplicación</ion-label>
+        <ion-datetime 
+          display-format="YYYY-MM-DD" 
+          [(ngModel)]="fecha_aplicacion" 
+          name="fecha_aplicacion" 
+          required
+          class="datetime-popover"
+        ></ion-datetime>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Dosis</ion-label>
+        <ion-input [(ngModel)]="dosis" name="dosis"></ion-input>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Seleccionar Mascota</ion-label>
+        <ion-select [(ngModel)]="mascota_id" name="mascota_id" interface="popover" required>
+          <ion-select-option *ngFor="let mascota of mascotas" [value]="mascota.id">
+            {{ mascota.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Botones de acción -->
+      <ion-button expand="block" type="submit" class="login-button">
+        Guardar Cambios
+      </ion-button>
+      <ion-button expand="block" color="medium" (click)="irAHomeFuncionalidad()" class="cancel-button">
+        Cancelar
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

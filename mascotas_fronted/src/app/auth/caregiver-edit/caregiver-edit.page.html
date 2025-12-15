@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar class="main-header">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" class="back-button"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="content-wrapper">
+    <!-- Encabezado de la página -->
+    <div class="header-container">
+      <h1 class="app-title">Editar Perfil</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+
+    <!-- Subtítulo del formulario -->
+    <h2 class="access-title">Modificar tus datos</h2>
+
+    <!-- Formulario de edición -->
+    <form (ngSubmit)="guardarCambios()" class="add-form">
+      <ion-item class="form-item">
+        <ion-label position="stacked">Nombre completo</ion-label>
+        <ion-input [(ngModel)]="cuidador.nombre_completo" name="nombre_completo"></ion-input>
+      </ion-item>
+      <ion-item class="form-item">
+        <ion-label position="stacked">Correo electrónico</ion-label>
+        <ion-input [(ngModel)]="cuidador.correo" type="email" name="correo" disabled></ion-input>
+      </ion-item>
+      <ion-item class="form-item">
+        <ion-label position="stacked">Teléfono</ion-label>
+        <ion-input [(ngModel)]="cuidador.telefono" name="telefono"></ion-input>
+      </ion-item>
+      <ion-item class="form-item">
+        <ion-label position="stacked">Rol</ion-label>
+        <ion-input [(ngModel)]="cuidador.rol" name="rol"></ion-input>
+      </ion-item>
+      <ion-item class="form-item">
+        <ion-label position="stacked">Dirección</ion-label>
+        <ion-input [(ngModel)]="cuidador.direccion" name="direccion"></ion-input>
+      </ion-item>
+
+      <!-- Botón de acción -->
+      <ion-button expand="block" type="submit" class="login-button">
+        Guardar Cambios
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

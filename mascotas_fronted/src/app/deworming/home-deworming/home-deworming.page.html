@@ -1,0 +1,51 @@
+<!-- <ion-header>
+  <ion-toolbar class="main-header">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" class="back-button"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Desparasitaciones</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="ion-padding">
+  <div class="content-wrapper">
+    <!-- Encabezado de la página -->
+    <div class="header-container">
+      <h1 class="app-title">Desparasitaciones</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+
+    <!-- Lista de desparasitaciones -->
+    <ion-list *ngIf="desparasitaciones.length > 0" class="deworming-list">
+      <ion-item *ngFor="let item of desparasitaciones" class="deworming-item">
+        <ion-label>
+          <h2 class="item-title">{{ item.tipo }}</h2>
+          <p>Producto: {{ item.producto_utilizado }}</p>
+          <p>Fecha: {{ item.fecha_aplicacion }}</p>
+        </ion-label>
+        <ion-button fill="clear" slot="end" (click)="irAEditar(item)" class="action-button">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" slot="end" (click)="eliminar(item.id)" class="action-button">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" slot="end" (click)="verDetalles(item)" class="action-button">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <!-- Mensaje si no hay desparasitaciones -->
+    <ion-text *ngIf="desparasitaciones.length === 0" class="no-records-text">
+      <p>No hay desparasitaciones registradas.</p>
+    </ion-text>
+    
+    <!-- Botón para registrar nueva desparasitación -->
+    <ion-button expand="block" routerLink="/add-deworming" class="login-button ion-margin-bottom">
+      Registrar Desparasitación
+    </ion-button>
+
+    <!-- Enlace para volver al menú principal -->
+    <a routerLink="/home" class="back-to-home-link">Volver al Menú Principal</a>
+  </div>
+</ion-content>

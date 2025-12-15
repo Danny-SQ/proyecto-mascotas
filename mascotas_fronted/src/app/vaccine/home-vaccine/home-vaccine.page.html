@@ -1,0 +1,43 @@
+<ion-content class="ion-padding">
+  
+  <div class="content-wrapper">
+    <div class="header-container">
+      <h1 class="app-title">Vacunas</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+
+    <h2 class="access-title">Registro de vacunas</h2>
+
+    <ion-list lines="none" class="pet-list" *ngIf="vacunas.length > 0">
+      <ion-item *ngFor="let item of vacunas" class="pet-item">
+        <ion-label>
+          <h3 class="pet-name">{{ item.tipo }}</h3>
+          <p class="pet-details">Fecha de aplicación: {{ item.fecha_aplicacion.substring(0, 10) }}</p>
+        </ion-label>
+        <ion-button fill="clear" color="primary" slot="end" (click)="verDetalles(item)">
+          <ion-icon name="eye-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="tertiary" slot="end" (click)="irAEditar(item)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" slot="end" (click)="eliminar(item.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-text *ngIf="vacunas.length === 0" class="no-pets-message">
+      <h3>No hay vacunas registradas.</h3>
+    </ion-text>
+
+    <ion-button expand="block" routerLink="/add-vaccine" class="login-button add-pet-button">
+      <ion-icon name="add-outline"></ion-icon> Registrar Vacuna
+    </ion-button>
+
+    <div class="bottom-links">
+      <a (click)="irAHomePrincipal()" class="register-link">
+        Volver al Menú Principal
+      </a>
+    </div>
+  </div>
+</ion-content>

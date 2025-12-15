@@ -1,0 +1,147 @@
+ion-header {
+  ion-toolbar {
+    --background: #fff;
+    --border-color: transparent;
+    padding-top: 10px;
+
+    ion-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: #1a1a2e;
+      text-align: center;
+      padding-right: 48px;
+    }
+
+    .back-button {
+      --color: #1a1a2e;
+    }
+  }
+}
+
+ion-content {
+  --background: #e8f0f2;
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .header-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  
+    .app-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.2em;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 0;
+    }
+
+    .app-logo {
+      width: 150px;
+      height: auto;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+  }
+
+  .login-button {
+    --background: #ff5722;
+    --border-radius: 15px;
+    --box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+    height: 55px;
+    font-size: 1.1em;
+    font-weight: 600;
+    width: 100%;
+    max-width: 400px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 20px;
+  }
+
+  .deworming-list {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    background: transparent;
+    box-shadow: none;
+
+    .deworming-item {
+      --background: #fff;
+      --border-radius: 15px;
+      --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 15px;
+      padding: 10px;
+      
+      ion-label {
+        font-family: 'Poppins', sans-serif;
+        h2 {
+          font-size: 1.2em;
+          font-weight: 600;
+          color: #1a1a2e;
+        }
+        p {
+          font-size: 0.9em;
+          color: #aebfd0;
+        }
+      }
+      .action-button {
+        --padding-start: 5px;
+        --padding-end: 5px;
+
+        ion-icon {
+          font-size: 1.8em; /* Aumentado el tamaño para que se vean más grandes */
+        }
+      }
+    }
+  }
+
+  .no-records-text {
+    text-align: center;
+    margin-top: 40px;
+    font-family: 'Poppins', sans-serif;
+    color: #6c757d;
+  }
+
+  .back-to-home-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+    color: #1a1a2e;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #0056b3;
+    }
+  }
+}
+
+// Estilos para el Alert Controller de ver detalles
+.pet-details-alert {
+  --background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+
+  .alert-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #1a1a2e;
+    font-size: 1.4em;
+    text-align: center;
+  }
+
+  .alert-message {
+    font-family: 'Poppins', sans-serif;
+    color: #aebfd0;
+    font-size: 1em;
+    white-space: pre-wrap;
+  }
+}

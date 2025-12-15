@@ -1,0 +1,60 @@
+<ion-content class="ion-padding">
+  
+  <div class="content-wrapper">
+    <div class="header-container">
+      <h1 class="app-title">Homy Pett</h1>
+      <img src="\assets\img\logo.jpg" alt="Logo de Homy Pett" class="app-logo">
+    </div>
+
+    <h2 class="access-title">Registrarse</h2>
+    <p class="subtitle">Crear tu cuenta</p>
+
+    <div class="input-container">
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="cuidador.nombre_completo" placeholder="Nombre completo"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="cuidador.correo" type="email" placeholder="Correo electrónico"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="cuidador.contrasena" type="password" placeholder="Contraseña"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="cuidador.telefono" placeholder="Teléfono"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="briefcase-outline" slot="start"></ion-icon>
+        <ion-select [(ngModel)]="cuidador.rol" placeholder="Selecciona un rol">
+          <ion-select-option value="principal">Principal</ion-select-option>
+          <ion-select-option value="secundario">Secundario</ion-select-option>
+          <ion-select-option value="paseador">Paseador</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-input-item">
+        <ion-icon name="location-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="cuidador.direccion" placeholder="Dirección"></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-button expand="block" (click)="registrar()" class="login-button">
+      Registrar
+    </ion-button>
+    
+    <div class="bottom-links">
+      <p class="has-account-text">¿Ya tienes una cuenta?</p>
+      <a routerLink="/login" class="register-link">
+        Acceder
+      </a>
+    </div>
+  </div>
+
+</ion-content>

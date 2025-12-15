@@ -1,0 +1,42 @@
+<ion-content class="ion-padding">
+  <div class="content-wrapper">
+    <!-- Encabezado de la página -->
+    <div class="header-container">
+      <h1 class="app-title">Agregar Visita Veterinaria</h1>
+      <img src="\assets\img\pet-paws.png" alt="Patas de mascota" class="app-logo">
+    </div>
+    
+    <!-- Subtítulo del formulario -->
+    <h2 class="access-title">Registrar nueva visita</h2>
+
+    <!-- Formulario de adición -->
+    <form (submit)="guardar()" class="add-form">
+      <ion-item class="form-item">
+        <ion-label position="stacked">Fecha</ion-label>
+        <ion-datetime display-format="YYYY-MM-DD" [(ngModel)]="fecha" name="fecha" required></ion-datetime>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Motivo</ion-label>
+        <ion-textarea [(ngModel)]="motivo" name="motivo" required></ion-textarea>
+      </ion-item>
+
+      <ion-item class="form-item">
+        <ion-label position="stacked">Seleccionar Mascota</ion-label>
+        <ion-select [(ngModel)]="mascota_id" name="mascota_id" interface="popover" required>
+          <ion-select-option *ngFor="let mascota of mascotas" [value]="mascota.id">
+            {{ mascota.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Botones de acción -->
+      <ion-button expand="block" type="submit" class="login-button">
+        Guardar
+      </ion-button>
+      <ion-button expand="block" color="medium" (click)="irAHomeFuncionalidad()" class="cancel-button">
+        Cancelar
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
