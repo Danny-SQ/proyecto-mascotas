@@ -29,7 +29,7 @@ jobs:
         run: npm install
         working-directory: mascotas_fronted
       - name: Build del frontend
-        run: npm run build -- --configuration=production 
+        run: npm run build -- --configuration=production --base-href /proyecto-mascotas/
         working-directory: mascotas_fronted
       - name: Subir artefacto de build del frontend (www)
         uses: actions/upload-artifact@v4
