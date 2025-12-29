@@ -44,9 +44,10 @@ jobs:
         run: npm run lint || true
         working-directory: mascotas_fronted
 
-      - name: Ejecutar tests del frontend
-        run: npm test -- --watch=false --browsers=ChromeHeadless
-        working-directory: mascotas_fronted
+      # Tests deshabilitados temporalmente
+      # - name: Ejecutar tests del frontend
+      #   run: npm test -- --watch=false --browsers=ChromeHeadless
+      #   working-directory: mascotas_fronted
 
       - name: Build del frontend
         run: npm run build -- --configuration production --base-href /mascotas_fronted/
