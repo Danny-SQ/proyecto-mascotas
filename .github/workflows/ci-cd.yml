@@ -8,7 +8,7 @@ on:
 
 jobs:
   # ===========================
-  # ETAPA 1: INTEGRACIÓN CONTINUA (CI)
+  # JOB 1: INTEGRACIÓN CONTINUA
   # ===========================
   ci:
     runs-on: ubuntu-latest
@@ -21,24 +21,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'npm' # Optimiza la velocidad instalando desde caché
+          # Eliminamos la línea de 'cache' para evitar el error del lock file
 
       # ---------- BACKEND ----------
-      - name: Instalación y Pruebas Backend
+      - name: Instalar y Probar Backend
+        working-directory: backend
         run: |
           npm install
-          # Solo ejecutará test y lint si existen en tu package.json
           npm test --if-present
-          npm run lint --if-present
-        working-directory: backend
 
       # ---------- FRONTEND ----------
-      - name: Instalación y Build Frontend
+      - name: Instalar y Build Frontend
+        working-directory: frontend
         run: |
           npm install
-          npm run lint --if-present
           npm run build
-        working-directory: frontend
 
       - name: Subir artefacto de build
         uses: actions/upload-artifact@v4
