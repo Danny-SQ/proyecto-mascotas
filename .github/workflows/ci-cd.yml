@@ -1,59 +1,71 @@
-name: CI/CD Mascotas (Ionic & Flask Docker)
+name: CI/CD Proyecto Mascotas
 
 on:
   push:
     branches: ["main"]
-  workflow_dispatch:
+  pull_request:
+    branches: ["main"]
 
 jobs:
   # ===========================
-  # JOB 1: INTEGRACIÓN CONTINUA (CI) - FRONTEND & BACKEND
+  # ETAPA 1: INTEGRACIÓN CONTINUA (CI)
   # ===========================
   ci:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
 
-      # (Mantenemos la configuración de Node.js y Python)
-      
-      # CI - BACKEND
-      - name: Instalar dependencias del backend
-        run: pip install -r requirements.txt
-        working-directory: backend_mascotas
-      - name: Ejecutar tests del backend (Omitido)
-        run: echo "Saltando tests de backend (No configurados)."
-        
-      # CI - FRONTEND
-      - name: Instalar dependencias del frontend
-        run: npm install
-        working-directory: mascotas_fronted
-      - name: Build del frontend
-        run: npm run build -- --configuration=production --base-href /proyecto-mascotas/ --deploy-url /proyecto-mascotas/
-        working-directory: mascotas_fronted
-      - name: Subir artefacto de build del frontend (www)
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: 'npm' # Optimiza la velocidad instalando desde caché
+
+      # ---------- BACKEND ----------
+      - name: Instalación y Pruebas Backend
+        run: |
+          npm install
+          # Solo ejecutará test y lint si existen en tu package.json
+          npm test --if-present
+          npm run lint --if-present
+        working-directory: backend
+
+      # ---------- FRONTEND ----------
+      - name: Instalación y Build Frontend
+        run: |
+          npm install
+          npm run lint --if-present
+          npm run build
+        working-directory: frontend
+
+      - name: Subir artefacto de build
         uses: actions/upload-artifact@v4
         with:
-          name: frontend-www-artifact
-          path: mascotas_fronted/www
-          
+          name: frontend-dist
+          path: frontend/dist
+
   # ===========================
-  # JOB 2: DEPLOY FRONTEND (GitHub Pages)
+  # ETAPA 2: DESPLIEGUE FRONTEND (GitHub Pages)
   # ===========================
   deploy_frontend:
     needs: ci
+    if: github.event_name == 'push' # Solo despliega si es un push a main
     runs-on: ubuntu-latest
     permissions:
-      contents: write 
+      contents: write
 
     steps:
-      - name: Checkout del código
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Descargar artefacto del frontend
+
+      - name: Descargar build
         uses: actions/download-artifact@v4
         with:
-          name: frontend-www-artifact
-          path: dist 
+          name: frontend-dist
+          path: dist
+
       - name: Deploy a GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -61,36 +73,26 @@ jobs:
           publish_dir: ./dist
 
   # ===========================
-  # JOB 3: BUILD & PUSH IMAGEN DOCKER (BACKEND)
-  # El CD es manual
+  # ETAPA 3: DOCKER BACKEND
   # ===========================
   build_and_push_backend:
-    needs: ci 
+    needs: ci
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout del código
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # 1. Login en Docker Hub
       - name: Login en Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 2. Generar Etiqueta
-      - name: Set Image Tag
-        id: image_tag
-        run: echo "TAG=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
-
-      # 3. Construir y Subir Imagen a Docker Hub
-      - name: Build and Push Docker Image
+      - name: Build & Push Backend
         uses: docker/build-push-action@v5
         with:
-          context: ./backend_mascotas
+          context: ./backend
           push: true
-          tags: dannysq/backend-flask-ci-cd:${{ steps.image_tag.outputs.TAG }},dannysq/backend-flask-ci-cd:latest
-          
-      # 🚨 NOTA IMPORTANTE: El paso de 'Deploy Backend (Docker Container) via SSH' 
-      # HA SIDO ELIMINADO para evitar fallos al intentar acceder a una máquina local.
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/proyecto-mascotas-backend:latest
