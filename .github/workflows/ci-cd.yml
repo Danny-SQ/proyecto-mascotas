@@ -1,4 +1,4 @@
-name: CI/CD Proyecto Mascotas
+name: CI/CD Ionic Angular + Flask
 
 on:
   push:
@@ -12,52 +12,65 @@ jobs:
   # ===========================
   ci:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
 
+      # ---------- BACKEND (Flask) ----------
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias del backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        working-directory: backend_mascotas
+
+      # ---------- FRONTEND (Ionic Angular) ----------
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          # Eliminamos la línea de 'cache' para evitar el error del lock file
+          cache: "npm"
+          cache-dependency-path: mascotas_fronted/package-lock.json
 
-      # ---------- BACKEND ----------
-      - name: Instalar y Probar Backend
-        working-directory: backend_mascotas
-        run: |
-          npm install
-          npm test --if-present
-
-      # ---------- FRONTEND ----------
-      - name: Instalar y Build Frontend
+      - name: Instalar dependencias del frontend
+        run: npm ci
         working-directory: mascotas_fronted
-        run: |
-          npm install
-          npm run build
 
-      - name: Subir artefacto de build
+      - name: Ejecutar linter del frontend
+        run: npm run lint
+        working-directory: mascotas_fronted
+
+      - name: Ejecutar tests del frontend
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+        working-directory: mascotas_fronted
+
+      - name: Build del frontend
+        run: npm run build -- --configuration production --base-href /mascotas_fronted/
+        working-directory: mascotas_fronted
+
+      - name: Subir artefacto de build del frontend
         uses: actions/upload-artifact@v4
         with:
           name: frontend-dist
-          path: frontend/dist
+          path: mascotas_fronted/www
 
   # ===========================
-  # ETAPA 2: DESPLIEGUE FRONTEND (GitHub Pages)
+  # JOB 2: DEPLOY FRONTEND (CD)
   # ===========================
   deploy_frontend:
     needs: ci
-    if: github.event_name == 'push' # Solo despliega si es un push a main
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
-      - name: Checkout
+      - name: Checkout del código
         uses: actions/checkout@v4
 
-      - name: Descargar build
+      - name: Descargar artefacto del frontend
         uses: actions/download-artifact@v4
         with:
           name: frontend-dist
@@ -70,15 +83,13 @@ jobs:
           publish_dir: ./dist
 
   # ===========================
-  # ETAPA 3: DOCKER BACKEND
+  # JOB 3: IMAGEN DOCKER BACKEND
   # ===========================
   build_and_push_backend:
     needs: ci
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      - name: Checkout del código
         uses: actions/checkout@v4
 
       - name: Login en Docker Hub
@@ -87,9 +98,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build & Push Backend
-        uses: docker/build-push-action@v5
-        with:
-          context: ./backend
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/proyecto-mascotas-backend:latest
+      - name: Construir imagen Docker del backend
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mascotas-backend-flask:latest ./backend_mascotas
+
+      - name: Enviar imagen a Docker Hub
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mascotas-backend-flask:latest
