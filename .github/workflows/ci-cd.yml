@@ -25,14 +25,14 @@ jobs:
 
       # ---------- BACKEND ----------
       - name: Instalar y Probar Backend
-        working-directory: backend
+        working-directory: backend_mascotas
         run: |
           npm install
           npm test --if-present
 
       # ---------- FRONTEND ----------
       - name: Instalar y Build Frontend
-        working-directory: frontend
+        working-directory: mascotas_fronted
         run: |
           npm install
           npm run build
