@@ -51,7 +51,11 @@ jobs:
 
       - name: Build del frontend
         run: |
-          npm run build -- --configuration production --base-href=/proyecto-mascotas/ --deploy-url=/proyecto-mascotas/
+          ng build --configuration production
+          # Actualizar base href en el index.html generado
+          sed -i 's|<base href="/">|<base href="/proyecto-mascotas/">|g' www/index.html
+          echo "✅ Build completado. Verificando archivos:"
+          ls -la www/
         working-directory: mascotas_fronted
 
       - name: Subir artefacto de build del frontend
