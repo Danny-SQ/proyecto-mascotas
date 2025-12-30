@@ -53,9 +53,11 @@ jobs:
         working-directory: mascotas_fronted
         run: |
           npm run build -- --configuration production --base-href=/proyecto-mascotas/ --deploy-url=/proyecto-mascotas/
+          # Forzar que los estilos se carguen correctamente eliminando media="print"
+          sed -i 's/media="print" onload="this.media=.*all.*"/media="all"/g' www/index.html
           echo ""
-          echo "📄 ===== VERIFICANDO RUTAS EN INDEX.HTML ====="
-          cat www/index.html | grep -E '(href=|src=)' | head -15
+          echo "📄 ===== VERIFICANDO INDEX.HTML MODIFICADO ====="
+          cat www/index.html | grep -E 'stylesheet|<script' | head -10
           echo ""
           echo "📦 Archivos generados:"
           ls -la www/ | head -20
