@@ -23,10 +23,10 @@ jobs:
           python-version: "3.12"
 
       - name: Instalar dependencias del backend
+        working-directory: backend_mascotas
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-        working-directory: backend_mascotas
 
       # ---------- FRONTEND (Ionic Angular) ----------
       - name: Configurar Node.js
@@ -37,22 +37,21 @@ jobs:
           cache-dependency-path: mascotas_fronted/package-lock.json
 
       - name: Instalar dependencias del frontend
-        run: npm ci
         working-directory: mascotas_fronted
+        run: npm ci
 
       - name: Ejecutar linter del frontend
-        run: npm run lint || true
         working-directory: mascotas_fronted
+        run: npm run lint || true
 
       # Tests deshabilitados temporalmente
       # - name: Ejecutar tests del frontend
-      #   run: npm test -- --watch=false --browsers=ChromeHeadless
       #   working-directory: mascotas_fronted
+      #   run: npm test -- --watch=false --browsers=ChromeHeadless
 
       - name: Build del frontend
         working-directory: mascotas_fronted
         run: |
-          # Usar --base-href directamente en el build para que Angular configure correctamente TODAS las rutas
           npm run build -- --configuration production --base-href=/proyecto-mascotas/
           echo ""
           echo "📄 ===== VERIFICANDO INDEX.HTML GENERADO ====="
@@ -66,7 +65,6 @@ jobs:
           echo ""
           echo "📦 Primeros archivos JS:"
           find www/ -name "*.js" | head -5
-        working-directory: mascotas_fronted
 
       - name: Subir artefacto de build del frontend
         uses: actions/upload-artifact@v4
@@ -107,7 +105,7 @@ jobs:
             exit 1
           fi
 
-      - name: Copiar index.html como 404.html (para SPA routing)
+      - name: Preparar archivos para deployment
         run: |
           cp dist/index.html dist/404.html
           touch dist/.nojekyll
