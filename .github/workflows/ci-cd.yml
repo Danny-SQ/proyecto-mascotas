@@ -54,15 +54,23 @@ jobs:
           npm run build -- --configuration production
           # Actualizar base href en el index.html generado
           sed -i 's|<base href="/">|<base href="/proyecto-mascotas/">|g' www/index.html
-          echo "✅ Build completado. Verificando archivos:"
+          # Verificar que el index.html tenga el base href correcto
+          echo "📄 Verificando base href en index.html:"
+          grep "base href" www/index.html
+          echo ""
+          echo "✅ Build completado. Verificando estructura de archivos:"
           ls -la www/
+          echo ""
+          echo "📦 Archivos generados:"
+          find www/ -type f | head -20
         working-directory: mascotas_fronted
 
       - name: Subir artefacto de build del frontend
         uses: actions/upload-artifact@v4
         with:
           name: frontend-dist
-          path: mascotas_fronted/www/**/*
+          path: mascotas_fronted/www/
+          retention-days: 1
 
   # ===========================
   # JOB 2: DEPLOY FRONTEND (CD)
@@ -82,11 +90,25 @@ jobs:
           name: frontend-dist
           path: dist
 
+      - name: Verificar contenido descargado
+        run: |
+          echo "📦 Contenido del directorio dist:"
+          ls -la dist/
+          echo ""
+          echo "📄 Verificando index.html:"
+          if [ -f "dist/index.html" ]; then
+            echo "✅ index.html encontrado"
+            grep "base href" dist/index.html
+          else
+            echo "❌ index.html NO encontrado"
+            exit 1
+          fi
+
       - name: Copiar index.html como 404.html (para SPA routing)
         run: |
           cp dist/index.html dist/404.html
           touch dist/.nojekyll
-          echo "Contenido de dist:"
+          echo "✅ Archivos preparados para deployment"
           ls -la dist/
 
       - name: Deploy a GitHub Pages
@@ -94,6 +116,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          cname: false
 
   # ===========================
   # JOB 3: IMAGEN DOCKER BACKEND
