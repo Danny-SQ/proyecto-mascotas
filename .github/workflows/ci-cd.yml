@@ -51,7 +51,7 @@ jobs:
 
       - name: Build del frontend
         run: |
-          ng build --configuration production
+          npm run build -- --configuration production
           # Actualizar base href en el index.html generado
           sed -i 's|<base href="/">|<base href="/proyecto-mascotas/">|g' www/index.html
           echo "✅ Build completado. Verificando archivos:"
