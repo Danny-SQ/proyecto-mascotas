@@ -50,6 +50,7 @@ jobs:
       #   working-directory: mascotas_fronted
 
       - name: Build del frontend
+        working-directory: mascotas_fronted
         run: |
           # Usar --base-href directamente en el build para que Angular configure correctamente TODAS las rutas
           npm run build -- --configuration production --base-href=/proyecto-mascotas/
@@ -65,7 +66,6 @@ jobs:
           echo ""
           echo "📦 Primeros archivos JS:"
           find www/ -name "*.js" | head -5
-        working-directory: mascotas_fronted
         working-directory: mascotas_fronted
 
       - name: Subir artefacto de build del frontend
