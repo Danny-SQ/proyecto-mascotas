@@ -51,21 +51,21 @@ jobs:
 
       - name: Build del frontend
         run: |
-          npm run build -- --configuration production
-          # Actualizar base href en el index.html generado
-          sed -i 's|<base href="/">|<base href="/proyecto-mascotas/">|g' www/index.html
-          # Verificar que el index.html tenga el base href correcto
-          echo "📄 Verificando base href en index.html:"
-          grep "base href" www/index.html
+          # Usar --base-href directamente en el build para que Angular configure correctamente TODAS las rutas
+          npm run build -- --configuration production --base-href=/proyecto-mascotas/
           echo ""
-          echo "📄 Contenido completo del index.html:"
+          echo "📄 ===== VERIFICANDO INDEX.HTML GENERADO ====="
           cat www/index.html
           echo ""
-          echo "✅ Build completado. Verificando estructura de archivos:"
+          echo "📦 Estructura de archivos generados:"
           ls -la www/
           echo ""
-          echo "📦 Todos los archivos CSS y JS generados:"
-          find www/ -name "*.css" -o -name "*.js" | sort
+          echo "📦 Archivos CSS:"
+          find www/ -name "*.css"
+          echo ""
+          echo "📦 Primeros archivos JS:"
+          find www/ -name "*.js" | head -5
+        working-directory: mascotas_fronted
         working-directory: mascotas_fronted
 
       - name: Subir artefacto de build del frontend
