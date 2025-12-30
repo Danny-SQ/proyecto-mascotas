@@ -52,19 +52,13 @@ jobs:
       - name: Build del frontend
         working-directory: mascotas_fronted
         run: |
-          npm run build -- --configuration production --base-href=/proyecto-mascotas/
+          npm run build -- --configuration production --base-href=/proyecto-mascotas/ --deploy-url=/proyecto-mascotas/
           echo ""
-          echo "📄 ===== VERIFICANDO INDEX.HTML GENERADO ====="
-          cat www/index.html
+          echo "📄 ===== VERIFICANDO RUTAS EN INDEX.HTML ====="
+          cat www/index.html | grep -E '(href=|src=)' | head -15
           echo ""
-          echo "📦 Estructura de archivos generados:"
-          ls -la www/
-          echo ""
-          echo "📦 Archivos CSS:"
-          find www/ -name "*.css"
-          echo ""
-          echo "📦 Primeros archivos JS:"
-          find www/ -name "*.js" | head -5
+          echo "📦 Archivos generados:"
+          ls -la www/ | head -20
 
       - name: Subir artefacto de build del frontend
         uses: actions/upload-artifact@v4
@@ -96,30 +90,13 @@ jobs:
           echo "📦 Contenido del directorio dist:"
           ls -la dist/
           echo ""
-          echo "📄 Verificando index.html:"
-          if [ -f "dist/index.html" ]; then
-            echo "✅ index.html encontrado"
-            grep "base href" dist/index.html
-          else
-            echo "❌ index.html NO encontrado"
-            exit 1
-          fi
+          echo "📄 Verificando rutas en index.html desplegado:"
+          cat dist/index.html | grep -E '(href=|src=)' | head -15
 
       - name: Preparar archivos para deployment
         run: |
           cp dist/index.html dist/404.html
           touch dist/.nojekyll
-          # Crear archivo de prueba
-          cat > dist/test.html << 'EOF'
-          <!DOCTYPE html>
-          <html><head><meta charset="UTF-8"><title>Test</title>
-          <style>body{font-family:Arial;max-width:800px;margin:50px auto;padding:20px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white}.card{background:rgba(255,255,255,0.1);padding:30px;border-radius:15px}h1{margin-top:0}.info{background:rgba(255,255,255,0.05);padding:15px;margin:10px 0;border-radius:8px}button{background:#4CAF50;color:white;border:none;padding:12px 24px;border-radius:5px;cursor:pointer;margin:10px 5px}button:hover{background:#45a049}</style>
-          </head><body><div class="card"><h1>🧪 Test Deployment</h1>
-          <div class="info"><strong>✅ Deployment funciona</strong><p>URL: <span id="url"></span></p></div>
-          <button onclick="window.location.href='index.html'">Ir a App Principal</button>
-          <button onclick="alert('JavaScript funciona!')">Test JS</button>
-          </div><script>document.getElementById('url').textContent=window.location.href;console.log('Test page loaded');</script></body></html>
-          EOF
           echo "✅ Archivos preparados para deployment"
           ls -la dist/
 
