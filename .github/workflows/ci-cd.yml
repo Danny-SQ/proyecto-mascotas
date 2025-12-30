@@ -50,7 +50,8 @@ jobs:
       #   working-directory: mascotas_fronted
 
       - name: Build del frontend
-        run: npm run build -- --configuration production --base-href /proyecto-mascotas/ --deploy-url /proyecto-mascotas/
+        run: |
+          npm run build -- --configuration production --base-href=/proyecto-mascotas/ --deploy-url=/proyecto-mascotas/
         working-directory: mascotas_fronted
 
       - name: Subir artefacto de build del frontend
@@ -78,7 +79,11 @@ jobs:
           path: dist
 
       - name: Copiar index.html como 404.html (para SPA routing)
-        run: cp dist/index.html dist/404.html
+        run: |
+          cp dist/index.html dist/404.html
+          touch dist/.nojekyll
+          echo "Contenido de dist:"
+          ls -la dist/
 
       - name: Deploy a GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
