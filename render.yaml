@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mascotas-frontend
+    env: static
+    buildCommand: cd mascotas_fronted && npm install && npm run build -- --configuration production
+    staticPublishPath: mascotas_fronted/www
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
